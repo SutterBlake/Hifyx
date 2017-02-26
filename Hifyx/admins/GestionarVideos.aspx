@@ -19,7 +19,7 @@
             <p style="text-align:justify;">Para añadir un nuevo vídeo, pincha en el botón Nuevo. Si vas cambiar los datos de un vídeo, simplemente selecciona uno y pincha en el botón Modificar. Si quieres eliminar un vídeo, selecciona el afortunado y pincha en Eliminar (pedirá confirmación).</p>
             <asp:Label ID="lblMensajes" runat="server" Text="" ForeColor="red"></asp:Label><br />
             <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionString %>" SelectCommand="SELECT [id_video], [titulo], [director], [sinopsis], [genero], [anyo] FROM [videos]"></asp:SqlDataSource>
-            <asp:GridView ID="gridVideos" runat="server" AllowPaging="True" AutoGenerateColumns="False" DataKeyNames="id_video" DataSourceID="SqlDataSource1" CellPadding="4" ForeColor="#333333" GridLines="None" OnSelectedIndexChanged="gridVideos_SelectedIndexChanged" PageSize="4" OnPageIndexChanged="gridVideos_PageIndexChanged">
+            <asp:GridView ID="gridVideos" runat="server" AllowPaging="True" AutoGenerateColumns="False" DataKeyNames="id_video" DataSourceID="SqlDataSource1" CellPadding="4" ForeColor="#333333" GridLines="None" OnSelectedIndexChanged="gridVideos_SelectedIndexChanged" PageSize="6" OnPageIndexChanged="gridVideos_PageIndexChanged">
                 <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
                 <Columns>
                     <asp:CommandField ButtonType="Button" SelectText="&gt;&gt;" ShowSelectButton="True" />
