@@ -16,62 +16,60 @@ public partial class _Default : System.Web.UI.Page
     protected void btnInsertar_Click(object sender, EventArgs e)
     {
         lblMensajes.Text = "";
-        string strDni, strEmail, strNombre, strPassword, strPassword2;
+        string strDni, strEmail, strNombre, strPassword, fechaExp;
         strDni = txtDni.Text;
         strEmail = txtEmail.Text;
         strNombre = txtNombre.Text;
-        strPassword = txtPassword1.Text;
-        strPassword2 = txtPassword2.Text;
+        int anyo = DateTime.Now.Year, mes = DateTime.Now.Month+1, dia = DateTime.Now.Day;
+        fechaExp = anyo.ToString() + "-" + mes.ToString() + "-" + dia.ToString();
 
-        if (txtPassword1.Text == txtPassword2.Text && txtPassword1.Text != "")
+    /*  
+    Insertamos la fecha en una variable string, porque si lo hacemos con un constructor 
+    nos la crea con delimitadores / , y al insertarlo en la BBDD tienen que ser - .
+        fechaExp = Convert.ToString(new DateTime(anyo, mes, dia));
+    */
+        if (txtPassword1.Text != "" && txtPassword1.Text == txtPassword2.Text)
         {
+            strPassword = txtPassword1.Text;
             if (strDni != "" && strEmail != "" && strNombre != "")
             {
-                string StrCadenaConexion = "Data Source=(localdb)\\MSSQLLocalDB;AttachDbFilename=" +
-                    Server.MapPath("~/App_Data/bbdd_hifyx.mdf") + ";Integrated Security=True;Connect Timeout=30";
-                string strComandoSql_1 = "INSERT USUARIOS " + "(id_usuario, email, contrasena, rol, nombre) VALUES (" +
-                    "'" + strDni + "','" + strEmail + "','" + strPassword + "','U','" + strNombre + "');";
-
-                SqlConnection conexion = new SqlConnection(StrCadenaConexion);
+                string RutaConexion = "Data Source=(localdb)\\MSSQLLocalDB;AttachDbFilename=" + Server.MapPath("~/App_Data/bbdd_hifyx.mdf") + ";Integrated Security=True;Connect Timeout=30";
+                string SentenciaSql = "INSERT INTO USUARIOS VALUES ('" + strDni + "','" + strEmail + "','" + strPassword + "','U','" + strNombre + "','" + fechaExp + "','');";
+                SqlConnection conexion = new SqlConnection(RutaConexion);
                 conexion.Open();
                 SqlCommand comando = new SqlCommand();
                 comando.Connection = conexion;
-                SqlTransaction tran = conexion.BeginTransaction();
-                comando.Transaction = tran;
+                SqlTransaction transac = conexion.BeginTransaction();
+                comando.Transaction = transac;
                 try
                 {
-                    comando.CommandText = strComandoSql_1;
+                    comando.CommandText = SentenciaSql;
                     comando.ExecuteNonQuery();
-                    tran.Commit();
-                    Response.Write("<script>alert('Usuario introducido correctamente.');</script>");
-                }
-                catch (SqlException ex)
-                {
-                    tran.Rollback();
-                    string StrError = "<p>Se han producido errores durante el registro</p>";
-                    StrError = StrError + "<div>Código: " + ex.Number + "</div>";
-                    StrError = StrError + "<div>Descripción: " + ex.Message + "</div>";
-                    lblMensajes.Text = StrError;
-
+                    transac.Commit();
+                    lblMensajes.Text = "Usuario " + txtNombre.Text + ", tu cuenta expira el día " + Convert.ToDateTime(fechaExp).ToString("dd/MM/yyyy") + ".";
                     txtDni.Text = "";
                     txtEmail.Text = "";
                     txtNombre.Text = "";
-                    txtPassword1.Text = "";
-                    txtPassword2.Text = "";
+                }
+                catch (SqlException exc)
+                {
+                    transac.Rollback();
+                    lblMensajes.Text = "<p>Se han producido errores durante el registro</p>" + "<div>Código: " + exc.Number + "</div>" + "<div>Descripción: " + exc.Message + "</div>";
                 }
                 finally
                 {
                     conexion.Close();
                 }
-            } else
+            }
+            else
             {
-                lblMensajes.Text = "No puede haber ningún campo vacío.";
+                lblMensajes.Text = "<p>Los siguientes campos son obligatorios:</p>" + "<ul><li>DNI</li><li>Email</li><li>Nombre</li></ul>";
+                txtPassword1.Text = strPassword;
+                txtPassword2.Text = strPassword;
             }
         }
         else
-        {
-            lblMensajes.Text = "Se ha producido un error. Valores de contraseña no coincidentes";
-        }
+            lblMensajes.Text = "Las contraseñas deben coincidir.";
     }
 
     protected void btnVaciar_Click(object sender, EventArgs e)
