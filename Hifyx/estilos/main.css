@@ -1,0 +1,218 @@
+﻿* {
+    text-align: justify;
+}
+main {
+    margin-top: 75px;
+    padding: 0px;
+}
+
+ul.navbar-nav {
+    float: right;
+}
+#LoginButton {
+    margin: 0 auto;
+}
+table td {
+    padding: 2px 5px;
+}
+
+/* Main MasterPage */
+#cuerpo {
+    display: flex;
+    justify-content: space-between;
+}
+
+/* Cerrar sesion */
+.cerrarSesion {
+    float: left;
+}
+/* Form registro */
+#formRegistro {
+    width: 200px;
+    margin: 0 auto;
+}
+.boton {
+    width: 100%;
+    margin-top: 50px;
+    text-align: center;
+    clear: both;
+}
+/*
+.linea { height: 25px;margin-bottom: 10px; }
+.textos { text-align: right; width: 40%; position: relative; float: left; }
+.controles { text-align: left; width: 58%; float: right; }
+*/
+
+/* Favoritos */
+.panelFavoritos {
+    width: 450px;
+    padding: 0px 15px;
+}
+/*#panelFavoritos2 {
+    order: 2;
+    width: 525px;
+    padding: 0px 10px;
+    margin: 0px 10px;
+    background-color: lightcoral;
+}*/
+
+
+/* Forms Admin */
+#adminContenedor {
+    width: auto;
+    padding: 0px 10px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+}
+#adminDatosIzquierda {
+    order: 1;
+    width: 950px;
+    padding: 0px 30px 20px 20px;
+    box-sizing: border-box;
+    border-right: 2px solid grey;
+}
+#adminDatosDerecha {
+    order: 2;
+    width: 275px;
+    margin: 85px 25px 0px 25px;
+    padding-bottom: 15px;
+    box-sizing: border-box;
+}
+
+
+
+/* Contenido Videos y Musica */
+#userMultimedia {
+    width: 1100px;
+    padding: 0px 10px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+}
+#userFavBotonera {
+    width: 1200px;
+    padding: 0px 10px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+}
+#userListaContenido {
+    order: 1;
+    width: 750px;
+    margin-top: 15px;
+    padding: 0px 20px 20px 20px;
+    box-sizing: border-box;
+    border-right: 2px solid grey;
+}
+#userInfoContenido {
+    order: 2;
+    width: 400px;
+    margin: 100px 25px 20px 25px;
+    box-sizing: border-box;
+}
+.etiquetaLinea, .etiquetaLineaDatos {
+    height: 25px;
+    margin-bottom: 30px;
+}
+.etiquetaMultiLineaDatos {
+    height: 105px;
+    margin-bottom: 30px;
+}
+.etiquetaSinopsis {
+    min-height: 25px;
+    height: auto;
+    margin-bottom: 30px;
+}
+.botonMultimedia {
+    width: 100%;
+    margin-top: 25px;
+    text-align: center;
+    clear: both;
+}
+
+/* Forms */
+#panelIzquierda {
+    order: 1;
+    width: 900px;
+    padding: 10px 15px 10px 10px;
+    margin-right: 10px;
+    box-sizing: border-box;
+}
+#panelDerecha {
+    order: 2;
+    width: 265px;
+    padding: 10px;
+    box-sizing: border-box;
+}
+#contenedorForm {
+    margin: 0 auto;
+    margin-top: 70px;
+    padding-top: 15px;
+    padding-bottom: 30px;
+    width: 100%;
+}
+/* Panel de usuario */
+#userPanelIzquierda {
+    order: 1;
+    width: 700px;
+    padding: 0px 10px 10px 10px;
+    box-sizing: border-box;
+}
+#userPanelDerecha {
+    order: 2;
+    width: 400px;
+    padding: 10px;
+    box-sizing: border-box;
+}
+#userContenedorForm {
+    margin-left: 0;
+    width: 250px;
+    margin-top: 100px;
+    padding-bottom: 15px;
+}
+#contenedorRegistro {
+    margin: 0 auto;
+    margin-top: 20px;
+    margin-left: 10px;
+    margin-right: 10px;
+    padding-top: 15px;
+    padding-bottom: 30px;
+    width: 100%;
+}
+
+.etiquetaLinea > span {
+    display: block;
+}
+/*.etiquetaLinea > .campoLinea, .etiquetaMultiLinea > .campoLinea {
+    margin-left: 15px;
+    width: 200px !important;
+}*/
+.botonera {
+    width: 100%;
+    margin-top: 60px;
+    text-align: center;
+    clear: both;
+}
+.btn {
+    margin-bottom: 4px;
+}
+
+/* NOT USING(?) */
+/*
+.elemento {
+    display: block;
+    margin: 0 auto;
+}
+#contenidoSecundario .fila {
+    width: 100%;
+    display: block;
+    margin-bottom: 20px;
+    text-align: center;
+}
+#contenidoSecundario .botones {
+    width: 100%;
+    display: block;
+    margin-bottom: 10px;
+    text-align: center;
+}*/
