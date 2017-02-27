@@ -15,10 +15,10 @@
                 <Columns>
                     <asp:CommandField ButtonType="Button" ShowSelectButton="True" />
                     <asp:BoundField DataField="titulo" HeaderText="Título" SortExpression="titulo">
-                    <HeaderStyle Width="200px" />
+                    <HeaderStyle Width="230px" />
                     </asp:BoundField>
                     <asp:BoundField DataField="director" HeaderText="Director" SortExpression="director">
-                    <HeaderStyle Width="200px" />
+                    <HeaderStyle Width="230px" />
                     </asp:BoundField>
                 </Columns>
                 <EditRowStyle BackColor="#999999" />

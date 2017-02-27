@@ -27,7 +27,7 @@ public partial class admins_GestionarMusica : System.Web.UI.Page
         string StrCadenaConexion = "Data Source=(localdb)\\MSSQLLocalDB;AttachDbFilename=" +
             Server.MapPath("~/App_Data/bbdd_hifyx.mdf") + ";Integrated Security=True;Connect Timeout=30";
         string StrComandoSql = "SELECT id_cancion, titulo, grupo, album, genero, anyo, discografica, url " +
-            " FROM canciones WHERE id_cancion = '" + StrCancion + "';";
+            " FROM canciones WHERE id_cancion='" + StrCancion + "';";
         try
         {
             SqlConnection conexion = new SqlConnection(StrCadenaConexion);
@@ -119,7 +119,7 @@ public partial class admins_GestionarMusica : System.Web.UI.Page
                 txtId.Enabled = true;
                 btnNuevo.Visible = true;
                 btnAnadir.Visible = false;
-                btnModificar.Visible = true;
+                btnModificar.Visible = false;
                 btnGuardar.Visible = false;
                 btnEliminar.Visible = false;
                 btnCancelar.Visible = false;

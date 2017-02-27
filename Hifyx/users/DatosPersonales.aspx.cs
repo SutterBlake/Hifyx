@@ -40,6 +40,7 @@ public partial class users_DatosPersonales : System.Web.UI.Page
             txtEmail.Text = reader.GetString(1);
             txtNombre.Text = reader.GetString(2);
             txtCodigo.Text = reader.GetString(4);
+            Session["codigoCaduc"] = reader.GetString(4);
             FormView1.DataBind();
         }
         catch (SqlException ex)
@@ -74,12 +75,74 @@ public partial class users_DatosPersonales : System.Web.UI.Page
 
         if (strPass1 == strPass2)
         {
-            if (txtDni.Text != "" && strEmail != "" && strPass1 != "" && strNuevoCod != "")
+            if (Convert.ToString(Session["codigoCaduc"]) != strNuevoCod)
+            {
+                string fechaExp;
+                int anyo = DateTime.Now.Year, mes = DateTime.Now.Month + 1, dia = DateTime.Now.Day;
+                fechaExp = anyo.ToString() + "-" + mes.ToString() + "-" + dia.ToString();
+                
+
+                if (txtDni.Text != "" && strEmail != "" && strPass1 != "" && strNuevoCod != "")
+                {
+                    string StrCadenaConexion = "Data Source=(localdb)\\MSSQLLocalDB;AttachDbFilename=" +
+                        Server.MapPath("~/App_Data/bbdd_hifyx.mdf") + ";Integrated Security=True;Connect Timeout=30";
+                    string StrComandoSql = "UPDATE usuarios SET email='" + txtEmail.Text + "', contrasena='" + strPass1 + "', nombre='" +
+                        strNombre + "', fecha_expiracion='" + fechaExp + "', codigo_actual='" + strNuevoCod + "' WHERE id_usuario='" + txtDni.Text + "';";
+                    try
+                    {
+                        SqlConnection conexion = new SqlConnection(StrCadenaConexion);
+                        SqlCommand comando = new SqlCommand(StrComandoSql, conexion);
+                        comando.Connection.Open();
+                        Int32 inRegistrosAfectados = comando.ExecuteNonQuery();
+                        comando.Connection.Close();
+
+                        if (!(Convert.ToBoolean(Session["caducado"])))
+                        {
+                            if (inRegistrosAfectados == 1)
+                                lblMensajes.Text = "Datos actualizados correctamente.";
+                            else
+                                lblMensajes.Text = "Error al actualizar los datos.";
+                        }
+                        if (Convert.ToBoolean(Session["caducado"]))
+                        {
+                            Session["caducado"] = false;
+                            if (inRegistrosAfectados == 1)
+                                lblMensajes.Text = "Código validado correctamente.";
+                            else
+                                lblMensajes.Text = "Error al actualizar los datos.";
+                        }
+                        btnModificar.Visible = true;
+                        btnGuardar.Visible = false;
+                        btnCancelar.Visible = false;
+                        DeshabilitarControles();
+                        FormView1.DataBind();
+                        CargarDatosTexto();
+                        VaciarCamposTexto();
+                    }
+                    catch (SqlException ex)
+                    {
+                        string StrError = "<p>Se han producido errores en el acceso a la base de datos.</p>";
+                        StrError = StrError + "<div>Código: " + ex.Number + "</div>";
+                        StrError = StrError + "<div>Descripción: " + ex.Message + "</div>";
+                        lblMensajes.Text = StrError;
+                        btnModificar.Visible = false;
+                        btnGuardar.Visible = true;
+                        btnCancelar.Visible = true;
+                        return;
+                    }
+                }
+                else
+                {
+                    lblMensajes.Text = "Campos requeridos: Email, Pass, Nombre y Código.";
+                    VaciarCamposTexto();
+                }
+            }
+            else
             {
                 string StrCadenaConexion = "Data Source=(localdb)\\MSSQLLocalDB;AttachDbFilename=" +
-                    Server.MapPath("~/App_Data/bbdd_hifyx.mdf") + ";Integrated Security=True;Connect Timeout=30";
-                string StrComandoSql = "UPDATE usuarios SET email='" + txtEmail.Text + "', contrasena='" + strPass1 + 
-                    "', nombre='" + strNombre + "', codigo_actual='" + strNuevoCod + "' WHERE id_usuario='" + txtDni.Text + "';";
+                        Server.MapPath("~/App_Data/bbdd_hifyx.mdf") + ";Integrated Security=True;Connect Timeout=30";
+                string StrComandoSql = "UPDATE usuarios SET email='" + txtEmail.Text + "', contrasena='" + strPass1 + "', nombre='" +
+                    strNombre + "', codigo_actual='" + strNuevoCod + "' WHERE id_usuario='" + txtDni.Text + "';";
                 try
                 {
                     SqlConnection conexion = new SqlConnection(StrCadenaConexion);
@@ -98,6 +161,10 @@ public partial class users_DatosPersonales : System.Web.UI.Page
                     FormView1.DataBind();
                     CargarDatosTexto();
                     VaciarCamposTexto();
+                    if (Convert.ToBoolean(Session["caducado"]) == true)
+                    {
+                        lblMensajes.Text = "Se han modificado datos, pero el código es el mismo que el anterior, por lo tanto la cuenta sigue caducada.";
+                    }
                 }
                 catch (SqlException ex)
                 {
@@ -110,10 +177,6 @@ public partial class users_DatosPersonales : System.Web.UI.Page
                     btnCancelar.Visible = true;
                     return;
                 }
-            } else
-            {
-                lblMensajes.Text = "Campos requeridos: Email, Pass, Nombre y Código.";
-                VaciarCamposTexto();
             }
         }
         else

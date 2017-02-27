@@ -8,9 +8,6 @@ using System.Web.UI.WebControls;
 
 public partial class users_Favoritos : System.Web.UI.Page
 {
-    string strTitulo, strElemento, strUrl;
-    int strIdElemento;
-
     protected void Page_Load(object sender, EventArgs e)
     {
         DeshabilitarBotones();
