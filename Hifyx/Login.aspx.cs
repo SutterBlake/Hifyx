@@ -10,7 +10,11 @@ public partial class _Default : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        
+        if(Session["registrado"] != null)
+        {
+            Login1.UserName = Session["registrado"].ToString();
+            Session.Remove("registrado");
+        }
     }
     protected void Login1_Authenticate(object sender, AuthenticateEventArgs e)
     {
@@ -42,7 +46,7 @@ public partial class _Default : System.Web.UI.Page
                 {
                     if (Convert.ToDateTime(Session["fechaExp"]) < System.DateTime.Now)
                     {
-                        Response.Write("<script>alert('Tu codigo ha caducado. Introduce uno nuevo en tu perfil.');</script>");
+                        //Response.Write("<script>alert('Tu codigo ha caducado. Introduce uno nuevo en tu perfil.');</script>");
                         Session["caducado"] = true;
                     }
                     Response.Redirect("~/users/Default.aspx");

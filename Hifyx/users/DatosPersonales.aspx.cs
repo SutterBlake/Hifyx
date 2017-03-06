@@ -15,6 +15,10 @@ public partial class users_DatosPersonales : System.Web.UI.Page
         btnGuardar.Visible = false;
         btnCancelar.Visible = false;
         DeshabilitarControles();
+        if (Convert.ToBoolean(Session["caducado"]))
+        {
+            lblMensajes.Text = "<p>Tu código ha caducado. Compra uno en tu tienda más cercana e introdúcelo a continuación.</p>";
+        }
     }
 
     protected void CargarDatosTexto()
@@ -99,17 +103,17 @@ public partial class users_DatosPersonales : System.Web.UI.Page
                         if (!(Convert.ToBoolean(Session["caducado"])))
                         {
                             if (inRegistrosAfectados == 1)
-                                lblMensajes.Text = "Datos actualizados correctamente.";
+                                lblMensajes.Text = "<p>Datos actualizados correctamente.</p>";
                             else
-                                lblMensajes.Text = "Error al actualizar los datos.";
+                                lblMensajes.Text = "<p>Error al actualizar los datos.</p>";
                         }
                         if (Convert.ToBoolean(Session["caducado"]))
                         {
                             Session["caducado"] = false;
                             if (inRegistrosAfectados == 1)
-                                lblMensajes.Text = "Código validado correctamente.";
+                                lblMensajes.Text = "<p>Código validado correctamente.</p>";
                             else
-                                lblMensajes.Text = "Error al actualizar los datos.";
+                                lblMensajes.Text = "<p>Error al actualizar los datos.</p>";
                         }
                         btnModificar.Visible = true;
                         btnGuardar.Visible = false;
@@ -133,7 +137,7 @@ public partial class users_DatosPersonales : System.Web.UI.Page
                 }
                 else
                 {
-                    lblMensajes.Text = "Campos requeridos: Email, Pass, Nombre y Código.";
+                    lblMensajes.Text = "<p>Campos requeridos: Email, Pass, Nombre y Código.</p>";
                     VaciarCamposTexto();
                 }
             }
@@ -151,9 +155,9 @@ public partial class users_DatosPersonales : System.Web.UI.Page
                     Int32 inRegistrosAfectados = comando.ExecuteNonQuery();
                     comando.Connection.Close();
                     if (inRegistrosAfectados == 1)
-                        lblMensajes.Text = "Datos actualizados correctamente.";
+                        lblMensajes.Text = "<p>Datos actualizados correctamente.</p>";
                     else
-                        lblMensajes.Text = "Error al actualizar los datos.";
+                        lblMensajes.Text = "<p>Error al actualizar los datos.</p>";
                     btnModificar.Visible = true;
                     btnGuardar.Visible = false;
                     btnCancelar.Visible = false;
@@ -163,7 +167,7 @@ public partial class users_DatosPersonales : System.Web.UI.Page
                     VaciarCamposTexto();
                     if (Convert.ToBoolean(Session["caducado"]) == true)
                     {
-                        lblMensajes.Text = "Se han modificado datos, pero el código es el mismo que el anterior, por lo tanto la cuenta sigue caducada.";
+                        lblMensajes.Text = "<p>Se han modificado datos, pero el código es el mismo que el anterior, por lo tanto la cuenta sigue caducada.</p>";
                     }
                 }
                 catch (SqlException ex)
@@ -181,7 +185,7 @@ public partial class users_DatosPersonales : System.Web.UI.Page
         }
         else
         {
-            lblMensajes.Text = "La contraseña debe coincidir.";
+            lblMensajes.Text = "<p>La contraseña debe coincidir.</p>";
             VaciarCamposTexto();
         }
     }
