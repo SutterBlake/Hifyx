@@ -18,7 +18,7 @@
                     <HeaderStyle Width="250px" />
                     </asp:BoundField>
                     <asp:BoundField DataField="grupo" HeaderText="Grupo" SortExpression="grupo" >
-                    <HeaderStyle Width="200px" />
+                    <HeaderStyle Width="250px" />
                     </asp:BoundField>
                 </Columns>
                 <EditRowStyle BackColor="#999999" />

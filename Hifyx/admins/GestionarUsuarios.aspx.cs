@@ -120,7 +120,7 @@ public partial class admins_GestionarUsuarios : System.Web.UI.Page
                 txtDni.Enabled = true;
                 btnNuevo.Visible = true;
                 btnAnadir.Visible = false;
-                btnModificar.Visible = true;
+                btnModificar.Visible = false;
                 btnGuardar.Visible = false;
                 btnEliminar.Visible = false;
                 btnCancelar.Visible = false;

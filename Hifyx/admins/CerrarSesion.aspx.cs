@@ -16,6 +16,7 @@ public partial class admins_CerrarSesion : System.Web.UI.Page
     {
         Session.Clear();
         Session.Abandon();
+        Session.RemoveAll();
         Response.Redirect("~/Default.aspx", false);
     }
     protected void btnCancelar_Click(object sender, EventArgs e)

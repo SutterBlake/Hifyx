@@ -12,7 +12,9 @@ public partial class _Default : System.Web.UI.Page
     {
         txtDni.Focus();
     }
-
+    protected void CamposRequeridos()
+    {
+    }
     protected void btnInsertar_Click(object sender, EventArgs e)
     {
         lblMensajes.Text = "";
@@ -20,18 +22,17 @@ public partial class _Default : System.Web.UI.Page
         strDni = txtDni.Text;
         strEmail = txtEmail.Text;
         strNombre = txtNombre.Text;
+        strPassword = txtPassword1.Text;
         int anyo = DateTime.Now.Year, mes = DateTime.Now.Month+1, dia = DateTime.Now.Day;
         fechaExp = anyo.ToString() + "-" + mes.ToString() + "-" + dia.ToString();
-
-    /*  
+/*  
     Insertamos la fecha en una variable string, porque si lo hacemos con un constructor 
     nos la crea con delimitadores / , y al insertarlo en la BBDD tienen que ser - .
         fechaExp = Convert.ToString(new DateTime(anyo, mes, dia));
-    */
-        if (txtPassword1.Text != "" && txtPassword1.Text == txtPassword2.Text)
+*/
+        if (strDni != "" && strEmail != "" && strNombre != "")
         {
-            strPassword = txtPassword1.Text;
-            if (strDni != "" && strEmail != "" && strNombre != "")
+            if (strPassword != "" && strPassword == txtPassword2.Text)
             {
                 string RutaConexion = "Data Source=(localdb)\\MSSQLLocalDB;AttachDbFilename=" + Server.MapPath("~/App_Data/bbdd_hifyx.mdf") + ";Integrated Security=True;Connect Timeout=30";
                 string SentenciaSql = "INSERT INTO USUARIOS VALUES ('" + strDni + "','" + strEmail + "','" + strPassword + "','U','" + strNombre + "','" + fechaExp + "','');";
@@ -50,6 +51,8 @@ public partial class _Default : System.Web.UI.Page
                     txtDni.Text = "";
                     txtEmail.Text = "";
                     txtNombre.Text = "";
+                    Session["registrado"] = strDni;
+                    Response.Redirect("~/Login.aspx");
                 }
                 catch (SqlException exc)
                 {
@@ -64,13 +67,15 @@ public partial class _Default : System.Web.UI.Page
             }
             else
             {
-                lblMensajes.Text = "<p>Los siguientes campos son obligatorios:</p>" + "<ul><li>DNI</li><li>Email</li><li>Nombre</li></ul>";
+                lblMensajes.Text = "<div>Campos obligatorios: DNI, Email, Nombre</div>";
                 txtPassword1.Text = strPassword;
                 txtPassword2.Text = strPassword;
             }
         }
         else
-            lblMensajes.Text = "Las contraseñas deben coincidir.";
+        {
+            CamposRequeridos();
+        }
     }
 
     protected void btnVaciar_Click(object sender, EventArgs e)

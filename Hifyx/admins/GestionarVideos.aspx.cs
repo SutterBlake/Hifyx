@@ -116,7 +116,7 @@ public partial class admins_GestionarVideos : System.Web.UI.Page
                 txtId.Enabled = true;
                 btnNuevo.Visible = true;
                 btnAnadir.Visible = false;
-                btnModificar.Visible = true;
+                btnModificar.Visible = false;
                 btnGuardar.Visible = false;
                 btnEliminar.Visible = false;
                 btnCancelar.Visible = false;
