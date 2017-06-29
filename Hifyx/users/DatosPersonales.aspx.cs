@@ -19,6 +19,7 @@ public partial class users_DatosPersonales : System.Web.UI.Page
         {
             lblMensajes.Text = "<p>Tu código ha caducado. Compra uno en tu tienda más cercana e introdúcelo a continuación.</p>";
         }
+        CargarDatosTexto();
     }
 
     protected void CargarDatosTexto()
@@ -196,7 +197,6 @@ public partial class users_DatosPersonales : System.Web.UI.Page
         btnGuardar.Visible = false;
         btnCancelar.Visible = false;
         DeshabilitarControles();
-        VaciarCamposTexto();
     }
     protected void VaciarCamposTexto()
     {
