@@ -46,7 +46,7 @@ public partial class _Default : System.Web.UI.Page
                     comando.CommandText = SentenciaSql;
                     comando.ExecuteNonQuery();
                     transac.Commit();
-                    lblMensajes.Text = "Usuario " + txtNombre.Text + ", tu cuenta expira el día " + Convert.ToDateTime(fechaExp).ToString("dd/MM/yyyy") + ".";
+                    lblMensajes.Text = "<div class='alert alert-info'><strong>" + txtNombre.Text + "</strong>, tu cuenta expira el " + Convert.ToDateTime(fechaExp).ToString("dd / MM / yyyy") + ".</div>";
                     txtDni.Text = "";
                     txtEmail.Text = "";
                     txtNombre.Text = "";
@@ -54,7 +54,8 @@ public partial class _Default : System.Web.UI.Page
                 catch (SqlException exc)
                 {
                     transac.Rollback();
-                    lblMensajes.Text = "<p>Se han producido errores durante el registro</p>" + "<div>Código: " + exc.Number + "</div>" + "<div>Descripción: " + exc.Message + "</div>";
+                    lblMensajes.Text = "<div class='alert alert-danger'>Se han producido errores durante el registro. <p>Código: " + exc.Number +
+                        ".</p><p>Descripción: " + exc.Message + ".</p></div>";
                 }
                 finally
                 {

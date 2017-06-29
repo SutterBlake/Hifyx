@@ -8,24 +8,24 @@
     <div id="formRegistro">
         <div id="contenedorRegistro">
             <div class="etiquetaLinea">
-                    <span>DNI</span>
-                    <asp:TextBox ID="txtDni" runat="server" CssClass="campoLinea form-control"></asp:TextBox>
+                <span>DNI</span>
+                <asp:TextBox ID="txtDni" runat="server" CssClass="campoLinea form-control"></asp:TextBox>
             </div>
             <div class="etiquetaLinea">
-                    <span>Email</span>
-                    <asp:TextBox ID="txtEmail" runat="server" CssClass="campoLinea form-control" TextMode="Email"></asp:TextBox>
+                <span>Email</span>
+                <asp:TextBox ID="txtEmail" runat="server" CssClass="campoLinea form-control" TextMode="Email"></asp:TextBox>
             </div>
             <div class="etiquetaLinea">
-                    <span>Nombre</span>
-                    <asp:TextBox ID="txtNombre" runat="server" CssClass="campoLinea form-control"></asp:TextBox>
+                <span>Nombre</span>
+                <asp:TextBox ID="txtNombre" runat="server" CssClass="campoLinea form-control"></asp:TextBox>
             </div>
             <div class="etiquetaLinea">
-                    <span>Contraseña</span>
-                    <asp:TextBox ID="txtPassword1" runat="server" CssClass="campoLinea form-control" TextMode="Password"></asp:TextBox>
+                <span>Contraseña</span>
+                <asp:TextBox ID="txtPassword1" runat="server" CssClass="campoLinea form-control" TextMode="Password"></asp:TextBox>
             </div>
             <div class="etiquetaLinea">
-                    <span>Confirmar contraseña</span>
-                    <asp:TextBox ID="txtPassword2" runat="server" CssClass="campoLinea form-control" TextMode="Password"></asp:TextBox>
+                <span>Confirmar contraseña</span>
+                <asp:TextBox ID="txtPassword2" runat="server" CssClass="campoLinea form-control" TextMode="Password"></asp:TextBox>
             </div>
             <div class="boton">
                 <asp:Button ID="btnInsertar" runat="server" CssClass="btn btn-primary" Text="Insertar" OnClick="btnInsertar_Click" />
