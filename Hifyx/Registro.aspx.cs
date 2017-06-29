@@ -54,8 +54,8 @@ public partial class _Default : System.Web.UI.Page
                 catch (SqlException exc)
                 {
                     transac.Rollback();
-                    lblMensajes.Text = "<div class='alert alert-danger'>Se han producido errores durante el registro. <p>Código: " + exc.Number +
-                        ".</p><p>Descripción: " + exc.Message + ".</p></div>";
+                    lblMensajes.Text = "<div class='alert alert-danger'><strong>Se han producido errores durante el registro.</strong><br /><br />" +
+                        "<strong>Código:</strong> " + exc.Number + ".<br /><strong>Descripción:</strong> " + exc.Message + ".</div>";
                 }
                 finally
                 {
