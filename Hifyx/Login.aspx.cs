@@ -10,11 +10,6 @@ public partial class _Default : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        if(Session["registrado"] != null)
-        {
-            Login1.UserName = Session["registrado"].ToString();
-            Session.Remove("registrado");
-        }
     }
     protected void Login1_Authenticate(object sender, AuthenticateEventArgs e)
     {
@@ -22,8 +17,8 @@ public partial class _Default : System.Web.UI.Page
         string StrCadenaConexion = "Data Source=(localdb)\\MSSQLLocalDB;AttachDbFilename=" +
                 Server.MapPath("~/App_Data/bbdd_hifyx.mdf") + ";Integrated Security=True;Connect Timeout=30";
         string StrComandoSql = "SELECT id_usuario, rol, nombre, fecha_expiracion FROM USUARIOS ";
-        StrComandoSql = StrComandoSql + " WHERE id_usuario='" + Login1.UserName + "' ";
-        StrComandoSql = StrComandoSql + "AND contrasena='" + Login1.Password + "';";
+        StrComandoSql = StrComandoSql + " WHERE id_usuario='" + Login1.UserName + "'";
+        StrComandoSql = StrComandoSql + " AND contrasena = '" + Login1.Password + "';";
         try
         {
             SqlConnection conexion = new SqlConnection(StrCadenaConexion);
