@@ -18,11 +18,11 @@ public partial class _Default : System.Web.UI.Page
     protected void btnInsertar_Click(object sender, EventArgs e)
     {
         lblMensajes.Text = "";
-        string strDni, strEmail, strNombre, strPassword, fechaExp;
-        strDni = txtDni.Text;
-        strEmail = txtEmail.Text;
-        strNombre = txtNombre.Text;
-        strPassword = txtPassword1.Text;
+        string dni, email, nombre, password, fechaExp;
+        dni = txtDni.Text;
+        email = txtEmail.Text;
+        nombre = txtNombre.Text;
+        password = txtPassword1.Text;
         int anyo = DateTime.Now.Year, mes = DateTime.Now.Month+1, dia = DateTime.Now.Day;
         fechaExp = anyo.ToString() + "-" + mes.ToString() + "-" + dia.ToString();
 /*  
@@ -30,12 +30,12 @@ public partial class _Default : System.Web.UI.Page
     nos la crea con delimitadores / , y al insertarlo en la BBDD tienen que ser - .
         fechaExp = Convert.ToString(new DateTime(anyo, mes, dia));
 */
-        if (strDni != "" && strEmail != "" && strNombre != "")
+        if (dni != "" && email != "" && nombre != "")
         {
-            if (strPassword != "" && strPassword == txtPassword2.Text)
+            if (password != "" && password == txtPassword2.Text)
             {
                 string RutaConexion = "Data Source=(localdb)\\MSSQLLocalDB;AttachDbFilename=" + Server.MapPath("~/App_Data/bbdd_hifyx.mdf") + ";Integrated Security=True;Connect Timeout=30";
-                string SentenciaSql = "INSERT INTO USUARIOS VALUES ('" + strDni + "','" + strEmail + "','" + strPassword + "','U','" + strNombre + "','" + fechaExp + "','');";
+                string SentenciaSql = "INSERT INTO USUARIOS VALUES ('" + dni + "','" + email + "','" + password.GetHashCode() + "','U','" + nombre + "','" + fechaExp + "','');";
                 SqlConnection conexion = new SqlConnection(RutaConexion);
                 conexion.Open();
                 SqlCommand comando = new SqlCommand();
@@ -51,7 +51,7 @@ public partial class _Default : System.Web.UI.Page
                     txtDni.Text = "";
                     txtEmail.Text = "";
                     txtNombre.Text = "";
-                    Session["registrado"] = strDni;
+                    Session["registrado"] = dni;
                     Response.Redirect("~/Login.aspx");
                 }
                 catch (SqlException exc)
@@ -68,8 +68,8 @@ public partial class _Default : System.Web.UI.Page
             else
             {
                 lblMensajes.Text = "<div>Campos obligatorios: DNI, Email, Nombre</div>";
-                txtPassword1.Text = strPassword;
-                txtPassword2.Text = strPassword;
+                txtPassword1.Text = password;
+                txtPassword2.Text = password;
             }
         }
         else

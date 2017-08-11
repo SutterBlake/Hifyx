@@ -19,6 +19,7 @@ public partial class users_DatosPersonales : System.Web.UI.Page
         {
             lblMensajes.Text = "<p>Tu código ha caducado. Compra uno en tu tienda más cercana e introdúcelo a continuación.</p>";
         }
+        CargarDatosTexto();
     }
 
     protected void CargarDatosTexto()
@@ -70,28 +71,28 @@ public partial class users_DatosPersonales : System.Web.UI.Page
     {
         lblMensajes.Text = "";
         txtDni.Text = (string)(Session["id_usuario"]); //(Convert.ToString(Session["id_usuario"]));
-        String strEmail, strNombre, strPass1, strPass2, strNuevoCod;
-        strPass1 = txtPass1.Text;
-        strPass2 = txtPass2.Text;
-        strEmail = txtEmail.Text;
-        strNombre = txtNombre.Text;
-        strNuevoCod = txtCodigo.Text;
+        string email, nombre, pass1, pass2, newCode;
+        pass1 = txtPass1.Text;
+        pass2 = txtPass2.Text;
+        email = txtEmail.Text;
+        nombre = txtNombre.Text;
+        newCode = txtCodigo.Text;
 
-        if (strPass1 == strPass2)
+        if (pass1 == pass2)
         {
-            if (Convert.ToString(Session["codigoCaduc"]) != strNuevoCod)
+            if (Convert.ToString(Session["codigoCaduc"]) != newCode)
             {
                 string fechaExp;
                 int anyo = DateTime.Now.Year, mes = DateTime.Now.Month + 1, dia = DateTime.Now.Day;
                 fechaExp = anyo.ToString() + "-" + mes.ToString() + "-" + dia.ToString();
                 
 
-                if (txtDni.Text != "" && strEmail != "" && strPass1 != "" && strNuevoCod != "")
+                if (txtDni.Text != "" && email != "" && pass1 != "" && newCode != "")
                 {
                     string StrCadenaConexion = "Data Source=(localdb)\\MSSQLLocalDB;AttachDbFilename=" +
                         Server.MapPath("~/App_Data/bbdd_hifyx.mdf") + ";Integrated Security=True;Connect Timeout=30";
-                    string StrComandoSql = "UPDATE usuarios SET email='" + txtEmail.Text + "', contrasena='" + strPass1 + "', nombre='" +
-                        strNombre + "', fecha_expiracion='" + fechaExp + "', codigo_actual='" + strNuevoCod + "' WHERE id_usuario='" + txtDni.Text + "';";
+                    string StrComandoSql = "UPDATE usuarios SET email='" + txtEmail.Text + "', contrasena='" + pass1 + "', nombre='" +
+                        nombre + "', fecha_expiracion='" + fechaExp + "', codigo_actual='" + newCode + "' WHERE id_usuario='" + txtDni.Text + "';";
                     try
                     {
                         SqlConnection conexion = new SqlConnection(StrCadenaConexion);
@@ -145,8 +146,8 @@ public partial class users_DatosPersonales : System.Web.UI.Page
             {
                 string StrCadenaConexion = "Data Source=(localdb)\\MSSQLLocalDB;AttachDbFilename=" +
                         Server.MapPath("~/App_Data/bbdd_hifyx.mdf") + ";Integrated Security=True;Connect Timeout=30";
-                string StrComandoSql = "UPDATE usuarios SET email='" + txtEmail.Text + "', contrasena='" + strPass1 + "', nombre='" +
-                    strNombre + "', codigo_actual='" + strNuevoCod + "' WHERE id_usuario='" + txtDni.Text + "';";
+                string StrComandoSql = "UPDATE usuarios SET email='" + txtEmail.Text + "', contrasena='" + pass1 + "', nombre='" +
+                    nombre + "', codigo_actual='" + newCode + "' WHERE id_usuario='" + txtDni.Text + "';";
                 try
                 {
                     SqlConnection conexion = new SqlConnection(StrCadenaConexion);
@@ -196,7 +197,6 @@ public partial class users_DatosPersonales : System.Web.UI.Page
         btnGuardar.Visible = false;
         btnCancelar.Visible = false;
         DeshabilitarControles();
-        VaciarCamposTexto();
     }
     protected void VaciarCamposTexto()
     {
